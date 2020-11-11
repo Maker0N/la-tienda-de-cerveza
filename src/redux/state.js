@@ -30,7 +30,7 @@ let state = {
     },
     {
       id: 4,
-      name: "Spanish IPA",
+      name: "Spanish APA",
       photo_url: "",
       unit: "litro",
       quant: 34,
@@ -40,7 +40,7 @@ let state = {
     },
     {
       id: 5,
-      name: "Pshenichka",
+      name: "Dark Ruby",
       photo_url: "",
       unit: "litro",
       quant: 28,
@@ -49,7 +49,7 @@ let state = {
     },
     {
       id: 6,
-      name: "Craft lager",
+      name: "Stout",
       photo_url: "",
       unit: "litro",
       quant: 24,
@@ -57,7 +57,9 @@ let state = {
       descript: "Laboriosam dolorum voluptas velit!",
     },
   ],
-  basket: []
+  tempCart: [],
+  cart: [],
+  order: []
 };
 
 export default state;

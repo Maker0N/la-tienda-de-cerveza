@@ -1,19 +1,21 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Product from "./product";
-import Cart from "./cart";
-import mainStyle from "./styles/main.module.scss";
+import ProductCart from "./productCart";
+import mainCartStyle from "./styles/main.module.scss";
 
-const { main } = mainStyle;
+const { main } = mainCartStyle;
 
-const Main = () => {
-  const { products, tempCart } = useSelector(
-    (s) => s.productReducer
-  );
+const MainCart = () => {
+  const { tempCart } = useSelector((s) => s.productReducer);
   const dispatch = useDispatch();
-  console.log(tempCart)
+  console.log(tempCart);
+
   return (
-    <main className={main}>
+    <div className={main}>
+      <div>
+        Total: {tempCart.reduce((acc, rec) => acc + rec.quant * rec.price, 0)}{" "}
+        €.
+      </div>
       <div
         style={{
           display: "flex",
@@ -22,13 +24,14 @@ const Main = () => {
         }}
       >
         <article style={{ width: "70%", height: "100%" }}>
-          {products.map((it) => {
+          {tempCart.map((it) => {
             return (
-              <Product
+              <ProductCart
                 key={it.id}
                 id={it.id}
                 photo_url={it.photo_url}
                 name={it.name}
+                quant={it.quant}
                 descript={it.descript}
                 unit={it.unit}
                 price={it.price}
@@ -38,12 +41,13 @@ const Main = () => {
           })}
         </article>
         <div style={{ width: "30%", height: "500px", paddingLeft: "20px" }}>
-          Cesta de la compra
-          <Cart />
+          <button type="button" style={{ width: "60%", height: "20%", backgroundColor: "orange" }}>
+            Confirmar y pagar
+          </button>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 
-export default Main;
+export default MainCart;

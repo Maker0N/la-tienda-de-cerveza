@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { addToCartAC } from "./redux/productReducer";
+import React, { useState } from 'react'
 import productStyle from "./styles/product.module.scss";
 
 const {
@@ -13,37 +12,20 @@ const {
   plusMinus,
 } = productStyle;
 
-const Product = (props) => {
-  let [stateInput, setStateInput] = useState(0);
+
+const ProductCart = (props) => {
+
+  let [stateInput, setStateInput] = useState(props.quant);
 
   const handleChangePlus = (e) => {
     e.target.value = stateInput;
-    setStateInput((stateInput = +e.target.value + 1))
+    setStateInput((stateInput = +e.target.value + 1));
   };
 
   const handleChangeMinus = (e) => {
     e.target.value = stateInput;
-    setStateInput((stateInput === 0 ? stateInput : +e.target.value - 1));
+    setStateInput(stateInput === 0 ? stateInput : +e.target.value - 1);
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const cartObj = {
-      id: props.id,
-      photo_url: props.photo_url,
-      name: props.name,
-      descript: props.descript,
-      quant: +stateInput,
-      unit: props.unit,
-      price: props.price,
-    };
-    if (stateInput !== 0) {
-    props.dispatch(addToCartAC(props.id, stateInput, cartObj));
-    setStateInput(stateInput = 0)
-    console.log(props.id);
-  }};
-
-    console.log(props)
 
   return (
     <section className={section}>
@@ -67,14 +49,17 @@ const Product = (props) => {
         </button>
         <div>litro(s)</div>
         <div>
-          <button type="button" onClick={handleSubmit}>
-            Añadir a la cesta
+          <button
+            type="button"
+            // onClick={handleSubmit}
+          >
+            Сambio
           </button>
         </div>
       </div>
-      <div className={price}>{props.price} €/litro</div>
+      <div className={price}>{props.price * stateInput} €</div>
     </section>
   );
-  }
+}
 
-export default Product;
+export default ProductCart

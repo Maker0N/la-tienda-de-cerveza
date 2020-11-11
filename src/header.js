@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import headerStyle from './styles/header.module.scss'
 
 const { header, logo, nav, button, div } = headerStyle
@@ -6,7 +7,7 @@ const { header, logo, nav, button, div } = headerStyle
 const Header = () => {
   return (
     <header className={header}>
-      <div className={logo}>Cervecería "Eldar, hijos e cuñado"</div>
+      <Link className={logo} to="/">Cervecería "Eldar, hijos e cuñado"</Link>
       <nav className={nav}>
         <button className={button}>a</button>
         <button className={button}>b</button>

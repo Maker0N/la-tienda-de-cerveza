@@ -1,23 +1,22 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from 'react-router-dom'
 import { removeFromCartAC } from "./redux/productReducer";
 
-const Basket = () => {
-  const { products, basket } = useSelector((s) => s.productReducer);
+const Cart = () => {
+  const { products, tempCart } = useSelector((s) => s.productReducer);
   const dispatch = useDispatch();
 
-  console.log(products);
+  console.log(products, tempCart);
 
-  const isBasketEmpty =
-    basket.length === 0
-    ? (
+  const isCartEmpty =
+    tempCart.length === 0 ? (
       <div style={{ backgroundColor: "orange", height: "100%" }}>
-        Basket is empty
+        No tienes ningún artículo en la cesta.
       </div>
-    )
-    : (
+    ) : (
       <div style={{ backgroundColor: "orange", height: "100%" }}>
-        {basket.map((it) => {
+        {tempCart.map((it) => {
           const removeItem = (e) => {
             e.preventDefault();
             dispatch(removeFromCartAC(it.id, it.quant));
@@ -25,20 +24,26 @@ const Basket = () => {
           return (
             <li key={it.id}>
               {it.name} - {it.quant} litro(s) - Cost: {it.price * it.quant} €.{" "}
-              <button onClick={removeItem}>X</button>
+              <button
+                style={{ border: "none", backgroundColor: "orange" }}
+                onClick={removeItem}
+              >
+                X
+              </button>
             </li>
           );
         })}
         <div>
-          Total: {basket.reduce((acc, rec) => acc + rec.quant * rec.price, 0)}{" "}
-          €.
+          Total: {tempCart.reduce((acc, rec) => acc + rec.quant * rec.price, 0)} €.
         </div>
         <div>
-          <button>To order</button>
+          <button>
+            <Link to="/cart">Ir en la cesta</Link>
+          </button>
         </div>
       </div>
     );
-  return isBasketEmpty;
+  return isCartEmpty;
 };
 
-export default Basket;
+export default Cart;
