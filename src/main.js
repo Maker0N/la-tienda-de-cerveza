@@ -1,17 +1,26 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { setCurrentPageAC } from "./redux/productReducer";
 import Product from "./product";
 import Cart from "./cart";
 import mainStyle from "./styles/main.module.scss";
 
-const { main } = mainStyle;
+const { main, currentPageStyle } = mainStyle;
 
 const Main = () => {
-  const { products, tempCart } = useSelector(
+  const { products, tempCart, pageSize, currentPage } = useSelector(
     (s) => s.productReducer
   );
   const dispatch = useDispatch();
-  console.log(tempCart)
+
+  const pagesCount = Math.ceil(products.length / pageSize);
+
+  let pages = [];
+  for (let i = 1; i <= pagesCount; i += 1) {
+    pages = [...pages, i];
+  }
+
+  console.log(currentPage);
   return (
     <main className={main}>
       <div
@@ -22,7 +31,7 @@ const Main = () => {
         }}
       >
         <article style={{ width: "70%", height: "100%" }}>
-          {products.map((it) => {
+          {products.slice((pageSize * currentPage - pageSize), (pageSize * currentPage)).map((it) => {
             return (
               <Product
                 key={it.id}
@@ -41,6 +50,21 @@ const Main = () => {
           Cesta de la compra
           <Cart />
         </div>
+      </div>
+      <div>
+        {pages.map((p) => {
+          const clickCurrentPage = (e) => {
+            e.preventDefault();
+            dispatch(setCurrentPageAC(p));
+          };
+          return (
+            <span
+              key={p}
+              className={currentPage === p ? currentPageStyle : null}
+              onClick={clickCurrentPage}
+            > {p} </span>
+          );
+        })}
       </div>
     </main>
   );

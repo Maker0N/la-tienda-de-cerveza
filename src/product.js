@@ -39,11 +39,8 @@ const Product = (props) => {
     };
     if (stateInput !== 0) {
     props.dispatch(addToCartAC(props.id, stateInput, cartObj));
-    setStateInput(stateInput = 0)
-    console.log(props.id);
+    // setStateInput(stateInput = 0)
   }};
-
-    console.log(props)
 
   return (
     <section className={section}>

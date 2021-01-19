@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { addToCartAC } from "./redux/productReducer";
 import productStyle from "./styles/product.module.scss";
 
 const {
@@ -27,6 +28,23 @@ const ProductCart = (props) => {
     setStateInput(stateInput === 0 ? stateInput : +e.target.value - 1);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const cartObj = {
+      id: props.id,
+      photo_url: props.photo_url,
+      name: props.name,
+      descript: props.descript,
+      quant: +stateInput,
+      unit: props.unit,
+      price: props.price,
+    };
+    if (stateInput !== 0) {
+      props.dispatch(addToCartAC(props.id, stateInput, cartObj));
+      // setStateInput(stateInput = 0)
+    }
+  };
+
   return (
     <section className={section}>
       <div className={photo}>{props.photo_url}</div>
@@ -51,7 +69,7 @@ const ProductCart = (props) => {
         <div>
           <button
             type="button"
-            // onClick={handleSubmit}
+            onClick={handleSubmit}
           >
             Сambio
           </button>

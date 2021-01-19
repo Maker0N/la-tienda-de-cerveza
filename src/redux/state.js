@@ -56,10 +56,21 @@ let state = {
       price: 6,
       descript: "Laboriosam dolorum voluptas velit!",
     },
+    {
+      id: 7,
+      name: "Lager",
+      photo_url: "",
+      unit: "litro",
+      quant: 21,
+      price: 5,
+      descript: "Laboriosam dolorum voluptas velit!",
+    },
   ],
   tempCart: [],
   cart: [],
-  order: []
+  order: [],
+  pageSize: 3,
+  currentPage: 1,
 };
 
 export default state;
